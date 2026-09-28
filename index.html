@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>АНО ЦСЗП «Спешите делать добро» — Цветущий сад</title>
+<style>
+  :root{
+    --bg:#fbfaf7;
+    --card:#ffffff;
+    --ink:#26241f;
+    --muted:#6f6a61;
+    --accent:#5a8f6a;
+    --accent-soft:#e7f1e9;
+    --rose:#d98a9a;
+    --rose-soft:#fbeef1;
+    --gold:#c9a227;
+    --gold-soft:#fdf8e7;
+    --line:#e8e4dc;
+    --shadow:0 6px 24px rgba(60,50,40,.08);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    font-family:'Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.65;
+  }
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+
+  /* ---------- HERO ---------- */
+  header.hero{
+    background:linear-gradient(135deg,#e7f1e9 0%,#fbeef1 100%);
+    padding:64px 0 56px;
+    border-bottom:1px solid var(--line);
+  }
+  .badge{
+    display:inline-block;
+    background:var(--card);
+    color:var(--accent);
+    font-size:13px;
+    font-weight:600;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    padding:6px 14px;
+    border-radius:999px;
+    box-shadow:var(--shadow);
+    margin-bottom:18px;
+  }
+  h1{
+    font-size:clamp(24px,3.6vw,38px);
+    line-height:1.25;
+    margin:0 0 14px;
+    max-width:900px;
+  }
+  .hero p{
+    font-size:clamp(15px,1.6vw,18px);
+    color:var(--muted);
+    max-width:760px;
+    margin:0 0 26px;
+  }
+  .hero-meta{
+    display:flex;flex-wrap:wrap;gap:10px;
+  }
+  .hero-meta span{
+    background:rgba(255,255,255,.75);
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:7px 16px;
+    font-size:14px;
+    color:#4a463f;
+  }
+
+  /* ---------- NAV ---------- */
+  nav.sticky{
+    position:sticky;top:0;z-index:50;
+    background:rgba(251,250,247,.92);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  nav.sticky .wrap{
+    display:flex;gap:6px;overflow-x:auto;padding-top:10px;padding-bottom:10px;
+    scrollbar-width:none;
+  }
+  nav.sticky .wrap::-webkit-scrollbar{display:none}
+  nav a{
+    white-space:nowrap;
+    text-decoration:none;
+    color:var(--muted);
+    font-size:14px;
+    font-weight:600;
+    padding:8px 14px;
+    border-radius:999px;
+    transition:.2s;
+  }
+  nav a:hover{background:var(--accent-soft);color:var(--accent)}
+
+  /* ---------- SECTIONS ---------- */
+  section{padding:52px 0;border-bottom:1px solid var(--line)}
+  section:last-of-type{border-bottom:none}
+  h2{
+    font-size:clamp(20px,2.4vw,28px);
+    margin:0 0 8px;
+    display:flex;align-items:center;gap:12px;
+  }
+  h2 .num{
+    flex:0 0 auto;
+    width:34px;height:34px;
+    display:grid;place-items:center;
+    background:var(--accent);color:#fff;
+    border-radius:10px;
+    font-size:15px;font-weight:700;
+  }
+  .lead{color:var(--muted);margin:0 0 26px;max-width:840px}
+
+  .grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+  .card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:22px;
+    box-shadow:var(--shadow);
+  }
+  .card h3{margin:0 0 8px;font-size:17px}
+  .card p{margin:0;color:var(--muted);font-size:15px}
+  .card.rose{background:var(--rose-soft);border-color:#f3dde3}
+  .card.green{background:var(--accent-soft);border-color:#d8e8dc}
+  .card.gold{background:var(--gold-soft);border-color:#f0e6c8}
+
+  ul.clean{list-style:none;padding:0;margin:0;display:grid;gap:12px}
+  ul.clean li{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-left:4px solid var(--accent);
+    border-radius:12px;
+    padding:14px 18px;
+    font-size:15px;
+  }
+  ul.clean li b{display:block;margin-bottom:2px}
+
+  /* ---------- LINKS ---------- */
+  .toolbar{
+    display:flex;flex-wrap:wrap;gap:10px;align-items:center;
+    margin-bottom:24px;
+  }
+  .chip{
+    border:1px solid var(--line);
+    background:var(--card);
+    color:var(--muted);
+    font:inherit;font-size:14px;font-weight:600;
+    padding:8px 16px;border-radius:999px;cursor:pointer;transition:.2s;
+  }
+  .chip:hover{border-color:var(--accent);color:var(--accent)}
+  .chip.active{background:var(--accent);border-color:var(--accent);color:#fff}
+  input#search{
+    flex:1 1 200px;min-width:180px;
+    font:inherit;font-size:15px;
+    padding:10px 16px;
+    border:1px solid var(--line);
+    border-radius:999px;
+    background:var(--card);
+    color:var(--ink);
+    outline:none;transition:.2s;
+  }
+  input#search:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+
+  .year-block{margin-bottom:34px}
+  .year-block h3{
+    font-size:18px;margin:0 0 14px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .year-block h3 .count{
+    font-size:12px;font-weight:700;color:var(--accent);
+    background:var(--accent-soft);padding:3px 10px;border-radius:999px;
+  }
+
+  .links{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(200px,1fr))}
+  a.link{
+    display:flex;align-items:center;gap:12px;
+    text-decoration:none;
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:13px 16px;
+    color:var(--ink);
+    font-size:14px;font-weight:600;
+    transition:.18s;
+    box-shadow:0 1px 2px rgba(60,50,40,.04);
+  }
+  a.link:hover{
+    border-color:var(--accent);
+    color:var(--accent);
+    transform:translateY(-2px);
+    box-shadow:0 8px 18px rgba(90,143,106,.18);
+  }
+  a.link .ico{
+    flex:0 0 auto;width:30px;height:30px;border-radius:9px;
+    display:grid;place-items:center;
+    background:var(--accent-soft);color:var(--accent);
+    font-size:14px;
+  }
+  a.link.rose .ico{background:var(--rose-soft);color:var(--rose)}
+  a.link.rose:hover{border-color:var(--rose);color:var(--rose);box-shadow:0 8px 18px rgba(217,138,154,.2)}
+  a.link.gold .ico{background:var(--gold-soft);color:var(--gold)}
+  a.link.gold:hover{border-color:var(--gold);color:var(--gold);box-shadow:0 8px 18px rgba(201,162,39,.2)}
+  a.link small{display:block;font-weight:500;color:var(--muted);font-size:11.5px;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+  .empty{color:var(--muted);font-size:15px;display:none}
+
+  /* ---------- ФОРУМ ---------- */
+  .forum-card{
+    background:var(--card);
+    border:2px solid var(--gold);
+    border-radius:18px;
+    padding:28px;
+    box-shadow:0 10px 30px rgba(201,162,39,.12);
+    margin-bottom:20px;
+  }
+  .forum-card h3{
+    font-size:20px;margin:0 0 10px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .forum-card h3 .ico-forum{
+    width:36px;height:36px;border-radius:10px;
+    background:var(--gold-soft);color:var(--gold);
+    display:grid;place-items:center;font-size:18px;
+  }
+  .forum-card p{margin:0 0 14px;color:var(--muted);font-size:15px}
+  .forum-links{display:flex;flex-wrap:wrap;gap:10px}
+  .forum-links a{
+    display:inline-flex;align-items:center;gap:8px;
+    text-decoration:none;
+    background:var(--gold-soft);
+    color:#8a701a;
+    border:1px solid #f0e6c8;
+    border-radius:999px;
+    padding:9px 18px;
+    font-size:14px;font-weight:600;
+    transition:.2s;
+  }
+  .forum-links a:hover{background:var(--gold);color:#fff;border-color:var(--gold)}
+
+  /* ---------- КОМАНДА ---------- */
+  .team-grid{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));max-width:760px;margin:0 auto}
+  .team-card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:var(--shadow);
+    text-align:center;
+    transition:.3s;
+  }
+  .team-card:hover{transform:translateY(-5px);box-shadow:0 18px 40px rgba(60,50,40,.16)}
+
+  .team-card .photo{
+    position:relative;
+    height:340px;
+    background:linear-gradient(135deg,var(--accent-soft),var(--rose-soft));
+    overflow:hidden;
+  }
+  .team-card.rose .photo{background:linear-gradient(135deg,var(--rose-soft),var(--gold-soft))}
+
+  .team-card .photo img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:center 25%;
+    display:block;
+    transition:transform .6s ease;
+  }
+  .team-card:hover .photo img{transform:scale(1.06)}
+
+  /* Заглушка, если фото не загрузилось */
+  .team-card .photo.no-photo{
+    display:grid;
+    place-items:center;
+    font-size:80px;
+    color:var(--accent);
+  }
+  .team-card.rose .photo.no-photo{color:var(--rose)}
+  .team-card .photo.no-photo::before{content:attr(data-emoji)}
+
+  .team-card .body{padding:22px 20px 26px}
+  .team-card h3{margin:0 0 6px;font-size:17px;line-height:1.3}
+  .team-card .role{
+    font-size:12.5px;font-weight:700;color:var(--accent);
+    text-transform:uppercase;letter-spacing:.05em;margin-bottom:12px;
+  }
+  .team-card.rose .role{color:var(--rose)}
+  .team-card p{margin:0;font-size:14px;color:var(--muted);line-height:1.55}
+
+  /* ---------- КОНТАКТЫ / РЕКВИЗИТЫ ---------- */
+  .req-grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+  .req-item{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:18px 20px;
+    box-shadow:var(--shadow);
+  }
+  .req-item .label{
+    font-size:12px;font-weight:700;letter-spacing:.05em;
+    text-transform:uppercase;color:var(--muted);
+    margin-bottom:4px;
+  }
+  .req-item .value{font-size:15px;font-weight:600;color:var(--ink)}
+  .req-item .value a{color:var(--accent);text-decoration:none}
+  .req-item .value a:hover{text-decoration:underline}
+
+  /* ---------- ПРОЕКТЫ ---------- */
+  .project-card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:24px;
+    box-shadow:var(--shadow);
+    display:flex;flex-direction:column;gap:10px;
+  }
+  .project-card .p-icon{
+    width:44px;height:44px;border-radius:12px;
+    display:grid;place-items:center;font-size:20px;
+  }
+  .project-card h3{margin:0;font-size:17px}
+  .project-card p{margin:0;color:var(--muted);font-size:14px;flex:1}
+  .project-card.green .p-icon{background:var(--accent-soft);color:var(--accent)}
+  .project-card.rose .p-icon{background:var(--rose-soft);color:var(--rose)}
+  .project-card.gold .p-icon{background:var(--gold-soft);color:var(--gold)}
+
+  /* ---------- УСТАВ ---------- */
+  .doc-banner{
+    background:linear-gradient(135deg,#eef4ef,#f7faf8);
+    border:1px solid #d8e8dc;
+    border-radius:16px;
+    padding:24px 28px;
+    display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;
+  }
+  .doc-banner p{margin:0;font-size:15px;color:var(--muted);max-width:600px}
+  .btn-doc{
+    display:inline-flex;align-items:center;gap:10px;
+    background:var(--accent);color:#fff;
+    text-decoration:none;
+    padding:12px 24px;border-radius:12px;
+    font-size:15px;font-weight:600;
+    transition:.2s;box-shadow:0 6px 16px rgba(90,143,106,.3);
+    white-space:nowrap;
+  }
+  .btn-doc:hover{background:#4a7d59;transform:translateY(-2px);box-shadow:0 10px 22px rgba(90,143,106,.4)}
+
+  footer{
+    background:#26241f;color:#d9d4cb;
+    padding:36px 0;font-size:14px;
+  }
+  footer .wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center}
+  footer b{color:#fff}
+  footer a{color:#a8d4b4;text-decoration:none}
+  footer a:hover{text-decoration:underline}
+
+  .top{
+    position:fixed;right:18px;bottom:18px;z-index:60;
+    width:44px;height:44px;border-radius:50%;
+    display:grid;place-items:center;
+    background:var(--accent);color:#fff;text-decoration:none;
+    box-shadow:0 8px 20px rgba(90,143,106,.4);
+    font-size:18px;
+  }
+
+  @media(max-width:600px){
+    .forum-card{padding:20px}
+    .doc-banner{padding:20px}
+    .btn-doc{width:100%;justify-content:center}
+    .team-card .photo{height:300px}
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= HERO ================= -->
+<header class="hero">
+  <div class="wrap">
+    <div class="badge">Красноярский край · Красноярск</div>
+    <h1>АНО Центр социально значимых проектов «Спешите делать добро»</h1>
+    <p>Поддерживающее сообщество женщин «Цветущий сад»: арт-терапия, исцеление через творчество и восстановление надежды. Творчество как катализатор личностного роста, социальной сплочённости и культурного развития.</p>
+    <div class="hero-meta">
+      <span>🎨 Арт-проекты</span>
+      <span>🧠 Ментальное здоровье</span>
+      <span>👩‍👧 Дружелюбен к семье</span>
+      <span>🤝 Сообщество взаимопомощи</span>
+    </div>
+  </div>
+</header>
+
+<!-- ================= NAV ================= -->
+<nav class="sticky">
+  <div class="wrap">
+    <a href="#org">Об организации</a>
+    <a href="#projects">Проекты</a>
+    <a href="#team">Команда</a>
+    <a href="#actual">Актуальность</a>
+    <a href="#goals">Цели и задачи</a>
+    <a href="#mechanics">Механика</a>
+    <a href="#forum">Форум «Созидай»</a>
+    <a href="#links">Мастер-классы</a>
+    <a href="#docs">Документы</a>
+  </div>
+</nav>
+
+<!-- ================= ОРГАНИЗАЦИЯ ================= -->
+<section id="org">
+  <div class="wrap">
+    <h2><span class="num">🏛</span> Об организации</h2>
+    <p class="lead">Автономная некоммерческая организация Центр социально значимых проектов «Спешите делать добро» — унитарная некоммерческая организация, созданная на основе имущественного взноса гражданина РФ в целях предоставления социальных услуг.</p>
+    <div class="req-grid">
+      <div class="req-item">
+        <div class="label">Полное наименование</div>
+        <div class="value">АНО ЦСЗП «Спешите делать добро»</div>
+      </div>
+      <div class="req-item">
+        <div class="label">ОГРН</div>
+        <div class="value">1252400010246</div>
+      </div>
+      <div class="req-item">
+        <div class="label">ИНН</div>
+        <div class="value">2465367686</div>
+      </div>
+      <div class="req-item">
+        <div class="label">КПП</div>
+        <div class="value">246501001</div>
+      </div>
+      <div class="req-item">
+        <div class="label">Юридический адрес</div>
+        <div class="value">660077, Красноярский край, г. Красноярск, ул. Молокова, д. 40, кв. 153</div>
+      </div>
+      <div class="req-item">
+        <div class="label">Телефон</div>
+        <div class="value"><a href="tel:+79029235387">+7 (902) 923-53-87</a></div>
+      </div>
+      <div class="req-item">
+        <div class="label">Почта для связи</div>
+        <div class="value"><a href="mailto:ano.centr.dobro@mail.ru">ano.centr.dobro@mail.ru</a></div>
+      </div>
+      <div class="req-item">
+        <div class="label">Сообщество ВКонтакте</div>
+        <div class="value"><a href="https://vk.ru/ano_speshite_delat_dobro" target="_blank" rel="noopener noreferrer">vk.ru/ano_speshite_delat_dobro</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ПРОЕКТЫ ================= -->
+<section id="projects">
+  <div class="wrap">
+    <h2><span class="num">🎨</span> Наши проекты</h2>
+    <p class="lead">Творчество играет фундаментальную роль в созидании общества, выступая катализатором личностного роста, социальной сплочённости и культурного развития.</p>
+    <div class="grid">
+      <div class="project-card green">
+        <div class="p-icon">🌿</div>
+        <h3>Арт-проект «Цветущий сад»</h3>
+        <p>Написание картин с начинающими и продолжающими художниками. Групповая арт-терапия, интуитивная живопись, цветотерапия и работа с текстурами.</p>
+      </div>
+      <div class="project-card rose">
+        <div class="p-icon">💛</div>
+        <h3>Арт-проект «Мастерская добра»</h3>
+        <p>Написание картин с людьми, находящимися в тяжёлых жизненных обстоятельствах. Творчество как инструмент восстановления внутренних опор.</p>
+      </div>
+      <div class="project-card gold">
+        <div class="p-icon">🌱</div>
+        <h3>Арт-проект «Созидая поколения»</h3>
+        <p>Написание картин с подрастающим поколением — детьми, подростками, в том числе сиротами. Развитие творческого потенциала и социальных навыков.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= КОМАНДА ================= -->
+<section id="team">
+  <div class="wrap">
+    <h2><span class="num">👥</span> Наша команда</h2>
+    <p class="lead">Специалисты, которые ведут арт-терапевтические сессии и вдохновляют участниц на творчество.</p>
+    <div class="team-grid">
+
+      <!-- Пекарская Олеся Васильевна -->
+      <div class="team-card rose">
+        <div class="photo">
+          <img src="pekarskaya.jpg"
+               alt="Пекарская Олеся Васильевна — руководитель арт-проектов"
+               onerror="this.style.display='none';this.parentNode.classList.add('no-photo');this.parentNode.dataset.emoji='💛'">
+        </div>
+        <div class="body">
+          <h3>Пекарская Олеся Васильевна</h3>
+          <div class="role">Руководитель арт-проектов</div>
+          <p>Организует и координирует работу арт-проектов, создаёт атмосферу творчества и глубокого смысла на каждой встрече.</p>
+        </div>
+      </div>
+
+      <!-- Соломина Анжела Васильевна -->
+      <div class="team-card">
+        <div class="photo">
+          <img src="solomina.jpg"
+               alt="Соломина Анжела Васильевна — художник-педагог"
+               onerror="this.style.display='none';this.parentNode.classList.add('no-photo');this.parentNode.dataset.emoji='🎨'">
+        </div>
+        <div class="body">
+          <h3>Соломина Анжела Васильевна</h3>
+          <div class="role">Художник-педагог</div>
+          <p>Раскрывает творческий потенциал участниц, обучает базовым техникам живописи, помогает преодолеть страх чистого листа.</p>
+        </div>
+      </div>
+
+    </div>
+    <p class="lead" style="margin-top:24px;font-size:14px;text-align:center">
+      Фотографии команды и номинация проекта 2025 года — на странице форума «Созидай»:
+      <a href="https://createforum.ru/2025#rec871190883" target="_blank" rel="noopener noreferrer" style="color:var(--accent);font-weight:600">createforum.ru/2025#rec871190883</a>
+    </p>
+  </div>
+</section>
+
+<!-- ================= АКТУАЛЬНОСТЬ ================= -->
+<section id="actual">
+  <div class="wrap">
+    <h2><span class="num">1</span> Актуальность и социальная значимость</h2>
+    <p class="lead">
+      В условиях современной социально-экономической повестки женщины в крупных промышленных и административных
+      центрах, таких как Красноярск, сталкиваются с колоссальной психоэмоциональной нагрузкой. Совмещение работы,
+      быта и воспитания детей при дефиците времени и высокой тревожности ведёт к накоплению хронического стресса,
+      росту эмоционального выгорания и скрытой социальной изоляции.
+    </p>
+    <p class="lead">Традиционные институты психологической помощи остаются недоступными для наиболее нуждающихся слоёв населения. Главные барьеры:</p>
+    <ul class="clean">
+      <li><b>Финансовый барьер</b>Высокая стоимость индивидуальной качественной психотерапии.</li>
+      <li><b>Временной барьер</b>Жёсткий график работы специалистов, не совпадающий со свободным временем работающих женщин.</li>
+      <li><b>Инфраструктурный / семейный барьер</b>Отсутствие возможности и ресурсов оставить малолетних детей под присмотром на время посещения психолога или творческой студии.</li>
+    </ul>
+    <p class="lead" style="margin-top:24px">
+      Проект «Цветущий сад» предлагает комплексное решение на стыке психопрофилактики, групповой арт-терапии и
+      создания долгосрочной поддерживающей среды взаимовыручки. Выбор целевой группы и методологии основан на
+      успешном четырёхлетнем практическом опыте организации.
+    </p>
+  </div>
+</section>
+
+<!-- ================= ЦЕЛИ И ЗАДАЧИ ================= -->
+<section id="goals">
+  <div class="wrap">
+    <h2><span class="num">2</span> Цели и задачи проекта</h2>
+    <div class="card green" style="margin-bottom:22px">
+      <h3>Цель проекта</h3>
+      <p>Сбережение ментального здоровья, профилактика эмоционального выгорания и снижение уровня психоэмоционального
+      напряжения у женщин города Красноярска через развитие открытого поддерживающего арт-сообщества и внедрение
+      доступных практик групповой арт-терапии.</p>
+    </div>
+    <ul class="clean">
+      <li><b>1. Организационная</b>Подготовка материально-технической базы, закупка художественных и терапевтических материалов, адаптация и зонирование пространства для встреч.</li>
+      <li><b>2. Просветительская</b>Информационная кампания, направленная на популяризацию традиционных семейных ценностей, осознанного родительства и важности сбережения ментального здоровья.</li>
+      <li><b>3. Практическая</b>Реализация цикла регулярных интегративных арт-терапевтических встреч в формате психологической гостиной.</li>
+      <li><b>4. Сообществообразующая</b>Формирование, модерирование и развитие устойчивых горизонтальных связей между участницами через виртуальные и очные инструменты поддержки.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= МЕХАНИКА ================= -->
+<section id="mechanics">
+  <div class="wrap">
+    <h2><span class="num">3</span> Механика и содержание деятельности</h2>
+    <p class="lead">Основная идея — использование преобразующей силы искусства как мягкого, но глубокого терапевтического инструмента.</p>
+    <div class="grid">
+      <div class="card">
+        <h3>Синхронная синергия двух специалистов</h3>
+        <p>Каждую сессию совместно ведут два профильных специалиста: дипломированный арт-терапевт отвечает за психологическое содержание, групповую динамику и атмосферу принятия; художник-педагог раскрывает творческий потенциал, снимает страх чистого листа и обучает базовым техникам живописи.</p>
+      </div>
+      <div class="card">
+        <h3>Оптимальная вместимость</h3>
+        <p>Среднее количество участников на встрече — тридцать человек. Это сохраняет терапевтическую безопасность, позволяет уделить внимание каждой женщине и соответствует вместимости площадки.</p>
+      </div>
+      <div class="card rose">
+        <h3>Инновационные арт-техники</h3>
+        <p>Участницы пишут интерьерные картины художественными красками на холстах. Используются методы интуитивной живописи, цветотерапии и работы с текстурами. Готовая картина остаётся у женщины — как личный визуальный якорь стабильности, силы и восстановленной надежды.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= СТРУКТУРА ================= -->
+<section id="blocks">
+  <div class="wrap">
+    <h2><span class="num">4</span> Блочно-модульная структура программы</h2>
+    <p class="lead">Каждая встреча длится несколько часов и разделена на три логических блока.</p>
+    <div class="grid">
+      <div class="card">
+        <h3>1. Ценностно-ориентированный лекторий</h3>
+        <p>Занятие открывается коротким интерактивным блоком о популяризации благополучного семейного образа жизни, традиционных ценностей и ответственного родительства.</p>
+      </div>
+      <div class="card">
+        <h3>2. Терапевтический практикум</h3>
+        <p>Процесс написания картины, привязанный к психологическому модулю: высвобождение подавленных эмоций, преодоление страхов, выстраивание личных границ, актуализация внутренних ресурсов и планирование позитивного будущего.</p>
+      </div>
+      <div class="card green">
+        <h3>3. Интеграция с детьми</h3>
+        <p>Проект дружественен к семье. Для устранения главного барьера в пространстве встреч организуется безопасный детский уголок с параллельной лёгкой творческой занятостью детей.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ФОРУМ «СОЗИДАЙ» ================= -->
+<section id="forum">
+  <div class="wrap">
+    <h2><span class="num">🌟</span> Форум «Созидай»</h2>
+    <p class="lead">Участие в ключевых событиях, посвящённых созидательной роли женщины в семье и обществе.</p>
+
+    <div class="forum-card">
+      <h3><span class="ico-forum">🏛</span> Общественная палата РФ · Пленарная сессия</h3>
+      <p>Мы — на площадке Общественной палаты РФ. Главное событие дня — пленарная сессия «Созидательная роль женщины в семье и обществе: единство духовно-нравственных ценностей и социальной ответственности».</p>
+      <p><b>Цель форума:</b> объединение женщин на основе общих традиционных духовно-нравственных ценностей для созидания сообщества, взаимной поддержки, личностного восстановления и формирования гармоничной социальной среды, способствующей укреплению семьи, защите материнства и детства, позитивному влиянию на культуру и будущие поколения.</p>
+      <div class="forum-links">
+        <a href="https://vk.ru/wall-222256744_117" target="_blank" rel="noopener noreferrer">📸 Пост №117 — Общественная палата РФ</a>
+        <a href="https://vk.ru/wall-222256744_118" target="_blank" rel="noopener noreferrer">📸 Пост №118 — Пленарная сессия</a>
+      </div>
+    </div>
+
+    <div class="forum-card" style="border-color:var(--rose);box-shadow:0 10px 30px rgba(217,138,154,.12)">
+      <h3><span class="ico-forum" style="background:var(--rose-soft);color:var(--rose)">🎤</span> Женский форум «Созидай» · Москва, 2025</h3>
+      <p>Участие в качестве спикеров в направлении «Культура и искусство» на женском форуме «Созидай», который объединяет людей для общения и взаимодействия, где можно поделиться опытом работы в различных сферах и приобрести новый опыт, расширить свои знания для помощи людям, попавшим в трудную жизненную ситуацию.</p>
+      <p>Получили благодарность и вошли в <b>30 проектов России</b> как «Лучшие практики регионов». Тема форума — «Созидательная роль женщины в семье и обществе».</p>
+      <p>Мероприятие объединило женщин разных возрастов, национальностей, интересов, статусов и конфессий, разделяющих единые семейные, духовные, христианские традиционно-нравственные ценности.</p>
+      <div class="forum-links">
+        <a href="https://vk.ru/wall-222256744_70" target="_blank" rel="noopener noreferrer" style="background:var(--rose-soft);color:#a85a6a;border-color:#f3dde3">📸 Пост №70 — Форум «Созидай»</a>
+        <a href="https://createforum.ru/2025#rec871190883" target="_blank" rel="noopener noreferrer" style="background:var(--rose-soft);color:#a85a6a;border-color:#f3dde3">🔗 Страница номинации 2025</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= УСТОЙЧИВОСТЬ ================= -->
+<section id="sustain">
+  <div class="wrap">
+    <h2><span class="num">5</span> Устойчивость проекта и онлайн-поддержка</h2>
+    <p class="lead">
+      Терапевтический эффект очных встреч не прерывается после завершения занятий. В рамках проекта развивается
+      внутренняя экосистема взаимопомощи через закрытый онлайн-чат поддержки. Участницы делятся личным опытом,
+      а арт-терапевт регулярно публикует поддерживающие материалы и психологические практики самопомощи.
+    </p>
+  </div>
+</section>
+
+<!-- ================= РЕЗУЛЬТАТЫ ================= -->
+<section id="results">
+  <div class="wrap">
+    <h2><span class="num">6</span> Наиболее значимые ожидаемые результаты</h2>
+    <div class="grid">
+      <div class="card green">
+        <h3>Для участниц</h3>
+        <p>Измеримое снижение уровня психоэмоционального напряжения, тревожности и синдрома выгорания. Женщины обретут применимые в быту навыки саморегуляции и алгоритмы преодоления кризисных ситуаций.</p>
+      </div>
+      <div class="card rose">
+        <h3>Для семьи благополучателей</h3>
+        <p>Снижение уровня тревожности и восстановление психологического ресурса у женщины напрямую улучшает психоэмоциональный климат в семье: меньше агрессии и депрессивных состояний, ниже конфликтность в доме.</p>
+      </div>
+      <div class="card gold">
+        <h3>Для гражданского общества</h3>
+        <p>В Красноярске закрепится и укрепится жизнеспособное открытое женское сообщество взаимовыручки, обеспечивающее профилактику социальной изоляции граждан.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ССЫЛКИ ================= -->
+<section id="links">
+  <div class="wrap">
+    <h2><span class="num">🎨</span> Мастер-классы: фото и материалы</h2>
+    <p class="lead">Ссылки на публикации сообщества ВКонтакте. Нажмите на любую карточку — материал откроется в новой вкладке.</p>
+
+    <div class="toolbar">
+      <button class="chip active" data-filter="all">Все годы</button>
+      <button class="chip" data-filter="2023">2023</button>
+      <button class="chip" data-filter="2024">2024</button>
+      <button class="chip" data-filter="2025">2025</button>
+      <button class="chip" data-filter="2026">2026</button>
+      <button class="chip" data-filter="forum">Форум</button>
+      <input id="search" type="search" placeholder="Поиск по номеру записи…">
+    </div>
+
+    <div id="linkContainer"></div>
+    <p class="empty" id="empty">Ничего не найдено. Измените запрос или фильтр.</p>
+  </div>
+</section>
+
+<!-- ================= ДОКУМЕНТЫ ================= -->
+<section id="docs">
+  <div class="wrap">
+    <h2><span class="num">📄</span> Уставные документы</h2>
+    <p class="lead">Наша организация действует строго в правовом поле. Ознакомиться с Уставом и отчётами можно на портале Минюста. Устав утверждён решением единственного учредителя от 18 апреля 2025 г.</p>
+    <div class="doc-banner">
+      <p>Официальные уставные документы, отчёты и сведения о деятельности АНО ЦСЗП «Спешите делать добро» доступны на специализированном портале Министерства юстиции РФ для некоммерческих организаций.</p>
+      <a class="btn-doc" href="https://nco.minjust.gov.ru/ru/registries?ogrn=1252400010246&status=REGISTERED" target="_blank" rel="noopener noreferrer">
+        📄 Открыть на портале Минюста →
+      </a>
+    </div>
+    <div class="req-grid" style="margin-top:20px">
+      <div class="req-item">
+        <div class="label">Устав утверждён</div>
+        <div class="value">18 апреля 2025 г. · г. Красноярск</div>
+      </div>
+      <div class="req-item">
+        <div class="label">Дата регистрации</div>
+        <div class="value">30 апреля 2025 г.</div>
+      </div>
+      <div class="req-item">
+        <div class="label">Организационно-правовая форма</div>
+        <div class="value">Автономная некоммерческая организация</div>
+      </div>
+      <div class="req-item">
+        <div class="label">Срок деятельности</div>
+        <div class="value">Неопределённый срок</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <b>АНО ЦСЗП «Спешите делать добро»</b><br>
+      ОГРН 1252400010246 · ИНН 2465367686 · КПП 246501001<br>
+      660077, г. Красноярск, ул. Молокова, д. 40, кв. 153<br>
+      <a href="tel:+79029235387">+7 (902) 923-53-87</a> · <a href="mailto:ano.centr.dobro@mail.ru">ano.centr.dobro@mail.ru</a>
+    </div>
+    <div>
+      <a href="https://vk.ru/ano_speshite_delat_dobro" target="_blank" rel="noopener noreferrer">Мы ВКонтакте</a><br>
+      <a href="https://nco.minjust.gov.ru/ru/registries?ogrn=1252400010246&status=REGISTERED" target="_blank" rel="noopener noreferrer">На портале Минюста</a>
+    </div>
+  </div>
+</footer>
+
+<a href="#" class="top" title="Наверх">↑</a>
+
+<script>
+/* ---------- Данные ссылок ---------- */
+const BASE = "https://vk.ru/wall-222256744_";
+const GROUPS = [
+  { year: "2023", title: "Мастер-классы 2023 года", items: [2,3,4,8,16,22,25] },
+  { year: "2024", title: "Мастер-классы 2024 года", items: [27,28,29,30,38,40,43,46,47,48,49,50,51,52] },
+  { year: "2025", title: "Мастер-классы 2025 года", items: [53,56,57,61,64,65,67,73,74,76,77,78,79,84,87,95,98,101,106,107,108,109,110] },
+  { year: "2026", title: "Мастер-классы 2026 года", items: [111,112,114,116,120,124,125,126,127,133,136,139,146,147,151] },
+  { year: "forum", title: "Форум «Созидай»", items: [70, 117, 118] }
+];
+
+const container = document.getElementById('linkContainer');
+const emptyMsg  = document.getElementById('empty');
+
+/* ---------- Рендер ---------- */
+function render(){
+  container.innerHTML = '';
+  GROUPS.forEach(g => {
+    const block = document.createElement('div');
+    block.className = 'year-block';
+    block.dataset.year = g.year;
+
+    block.innerHTML =
+      `<h3>${g.title} <span class="count">${g.items.length}</span></h3>
+       <div class="links"></div>`;
+
+    const linksWrap = block.querySelector('.links');
+    g.items.forEach(n => {
+      const a = document.createElement('a');
+      let cls = 'link';
+      if (g.year === 'forum') cls += ' gold';
+      a.className = cls;
+      a.href = BASE + n;
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      a.dataset.year = g.year;
+      a.dataset.num  = n;
+      a.innerHTML =
+        `<span class="ico">↗</span>
+         <span>Запись №${n}<small>${BASE + n}</small></span>`;
+      linksWrap.appendChild(a);
+    });
+
+    container.appendChild(block);
+  });
+}
+render();
+
+/* ---------- Фильтр по годам ---------- */
+let currentFilter = 'all';
+document.querySelectorAll('.chip').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.chip').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentFilter = btn.dataset.filter;
+    applyFilters();
+  });
+});
+
+/* ---------- Поиск ---------- */
+const search = document.getElementById('search');
+search.addEventListener('input', applyFilters);
+
+function applyFilters(){
+  const q = search.value.trim().toLowerCase();
+  let visibleTotal = 0;
+
+  document.querySelectorAll('.year-block').forEach(block => {
+    const year = block.dataset.year;
+    const yearMatch = (currentFilter === 'all') || (currentFilter === year);
+    let visibleInBlock = 0;
+
+    block.querySelectorAll('a.link').forEach(a => {
+      const numMatch = !q || a.dataset.num.includes(q) || a.href.toLowerCase().includes(q);
+      const show = yearMatch && numMatch;
+      a.style.display = show ? '' : 'none';
+      if (show) visibleInBlock++;
+    });
+
+    block.style.display = visibleInBlock ? '' : 'none';
+    block.querySelector('.count').textContent = visibleInBlock;
+    visibleTotal += visibleInBlock;
+  });
+
+  emptyMsg.style.display = visibleTotal ? 'none' : 'block';
+}
+
+/* ---------- Плавное появление карточек ---------- */
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting){
+      e.target.style.opacity = 1;
+      e.target.style.transform = 'none';
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: .08 });
+
+document.querySelectorAll('.card, .year-block, .project-card, .forum-card, .req-item, .team-card').forEach(el => {
+  el.style.opacity = 0;
+  el.style.transform = 'translateY(14px)';
+  el.style.transition = 'opacity .5s ease, transform .5s ease';
+  io.observe(el);
+});
+</script>
+
+</body>
+</html>
